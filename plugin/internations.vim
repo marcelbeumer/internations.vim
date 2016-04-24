@@ -1,4 +1,3 @@
-" If already loaded, we're done...
 if exists('g:loaded_internations')
   finish
 endif
