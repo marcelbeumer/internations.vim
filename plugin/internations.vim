@@ -68,7 +68,7 @@ if getcwd() =~ g:internations_root
     else
       let g:neomake_javascript_eslint_d_maker = {
         \ 'args': ['-f', 'compact',
-          \ '--rulesdir', simplify(g:internations_root) . '/eslint_rules'
+          \ '--rulesdir', simplify(g:internations_root . '/eslint_rules')
           \ ],
         \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
         \ '%W%f: line %l\, col %c\, Warning - %m'
