@@ -45,8 +45,7 @@ if getcwd() =~ g:internations_root
 
   function! HTMLTwigSettings()
       call EditIncludeBufferSetup('TwigEditIncludePathResolver', '')
-      setlocal suffixesadd+=.less
-      setlocal path+=**
+      exec 'setlocal path+=' . simplify(g:internations_root . '/app-new/src/InterNations/Bundle')
   endfunction
 
   function! JavaScriptLocalSettings()
