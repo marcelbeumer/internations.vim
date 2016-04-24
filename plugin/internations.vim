@@ -76,7 +76,7 @@ if getcwd() =~ g:internations_root
     endif
   endfunction
 
-  autocmd Filetype javascript call JavaScriptSettings()
+  autocmd BufEnter *.js call JavaScriptSettings()
   autocmd FileType jinja call HTMLTwigSettings()
   nmap <leader>g :call EditIncludeOnLine()<cr>
 endif
