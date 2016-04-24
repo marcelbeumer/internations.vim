@@ -51,8 +51,9 @@ if getcwd() =~ g:internations_root
   function! JavaScriptLocalSettings()
     setlocal suffixesadd+=.js
     setlocal suffixesadd+=.es.js
-    let bundlePath = simplify(g:internations_root . '/app-new/src/InterNations/Bundle/LayoutBundle/Resources/public/frontend/js/')
-    exec 'setlocal path+=' . bundlePath
+    exec 'setlocal path+=' .
+      \ simplify(g:internations_root .
+      \ '/app-new/src/InterNations/Bundle/LayoutBundle/Resources/public/frontend/js/')
   endfunction
 
   function! JavaScriptGlobalSettings()
