@@ -49,18 +49,20 @@ if getcwd() =~ g:internations_root
       setlocal path+=**
   endfunction
 
-  function! JavaScriptSettings()
+  function! JavaScriptLocalSettings()
     setlocal suffixesadd+=.js
     setlocal suffixesadd+=.es.js
     let bundlePath = simplify(g:internations_root . '/app-new/src/InterNations/Bundle/LayoutBundle/Resources/public/frontend/js/')
     exec 'setlocal path+=' . bundlePath
-    let g:neomake_javascript_enabled_makers = ['eslint_d']
+  endfunction
 
+  function! JavaScriptGlobalSettings()
+    let g:neomake_javascript_enabled_makers = ['eslint_d']
     if expand('%:t') =~ '.es.js'
       let g:neomake_javascript_eslint_d_maker = {
         \ 'args': ['-f', 'compact',
           \ '-c', simplify(g:internations_root . '/.eslintrc_es6'),
-          \ '--rulesdir', simplify(g:internations_root) . '/eslint_rules'
+          \ '--rulesdir', simplify(g:internations_root . '/eslint_rules')
           \ ],
         \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
         \ '%W%f: line %l\, col %c\, Warning - %m'
@@ -76,7 +78,8 @@ if getcwd() =~ g:internations_root
     endif
   endfunction
 
-  autocmd BufEnter *.js call JavaScriptSettings()
   autocmd FileType jinja call HTMLTwigSettings()
+  autocmd FileType javascript call JavaScriptLocalSettings()
+  autocmd BufEnter *.js call JavaScriptGlobalSettings()
   nmap <leader>g :call EditIncludeOnLine()<cr>
 endif
