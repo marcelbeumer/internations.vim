@@ -6,46 +6,46 @@ let g:loaded_internations = 1
 if getcwd() =~ g:internations_root
 
   function! EditIncludeOnLine()
-      let line = getline('.')
-      if exists("b:edit_include_line_parser")
-          let GrabFn = function(b:edit_include_line_parser)
-          let line = call(GrabFn, [line])
-      endif
-      let path = line
-      if exists("b:edit_include_path_resolver")
-          let ResolveFn = function(b:edit_include_path_resolver)
-          let path = call(ResolveFn, [line])
-      endif
-      let path = findfile(path)
-      exec 'e ' . path
+    let line = getline('.')
+    if exists("b:edit_include_line_parser")
+      let GrabFn = function(b:edit_include_line_parser)
+      let line = call(GrabFn, [line])
+    endif
+    let path = line
+    if exists("b:edit_include_path_resolver")
+      let ResolveFn = function(b:edit_include_path_resolver)
+      let path = call(ResolveFn, [line])
+    endif
+    let path = findfile(path)
+    exec 'e ' . path
   endfunction
 
   function! DefaultIncludeLineParser(line)
-      return substitute(a:line, '.\{-}[''"]\(.\{-}\)[''"].*', '\1', 'g')
+    return substitute(a:line, '.\{-}[''"]\(.\{-}\)[''"].*', '\1', 'g')
   endfunction
 
   function! EditIncludeBufferSetup(pathResolver, lineParser)
-      let lineParser = 'DefaultIncludeLineParser'
-      if strlen(a:lineParser) > 0
-          let lineParser = a:lineParser
-      endif
-      exec 'let b:edit_include_line_parser=''' . lineParser . ''''
-      if strlen(a:pathResolver) > 0
-          exec 'let b:edit_include_path_resolver=''' . a:pathResolver . ''''
-          exec 'setlocal includeexpr=' . a:pathResolver . '(v:fname)'
-      endif
+    let lineParser = 'DefaultIncludeLineParser'
+    if strlen(a:lineParser) > 0
+      let lineParser = a:lineParser
+    endif
+    exec 'let b:edit_include_line_parser=''' . lineParser . ''''
+    if strlen(a:pathResolver) > 0
+      exec 'let b:edit_include_path_resolver=''' . a:pathResolver . ''''
+      exec 'setlocal includeexpr=' . a:pathResolver . '(v:fname)'
+    endif
   endfunction
 
   function! TwigEditIncludePathResolver(fname)
-      let fname = a:fname
-      let fname = substitute(fname, ':', '/', 'g')
-      let fname = substitute(fname, '^InterNations\(.\{-}\)Bundle', '\1Bundle/Resources/views/', 'g')
-      return fname
+    let fname = a:fname
+    let fname = substitute(fname, ':', '/', 'g')
+    let fname = substitute(fname, '^InterNations\(.\{-}\)Bundle', '\1Bundle/Resources/views/', 'g')
+    return fname
   endfunction
 
   function! HTMLTwigSettings()
-      call EditIncludeBufferSetup('TwigEditIncludePathResolver', '')
-      exec 'setlocal path+=' . simplify(g:internations_root . '/app-new/src/InterNations/Bundle')
+    call EditIncludeBufferSetup('TwigEditIncludePathResolver', '')
+    exec 'setlocal path+=' . simplify(g:internations_root . '/app-new/src/InterNations/Bundle')
   endfunction
 
   function! JavaScriptLocalSettings()
