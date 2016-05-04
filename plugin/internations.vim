@@ -58,24 +58,13 @@ if getcwd() =~ g:internations_root
 
   function! JavaScriptGlobalSettings()
     let g:neomake_javascript_enabled_makers = ['eslint_d']
-    if expand('%:t') =~ '.es.js'
-      let g:neomake_javascript_eslint_d_maker = {
-        \ 'args': ['-f', 'compact',
-          \ '-c', simplify(g:internations_root . '/.eslintrc_es6'),
-          \ '--rulesdir', simplify(g:internations_root . '/eslint_rules')
-          \ ],
-        \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-        \ '%W%f: line %l\, col %c\, Warning - %m'
-        \ }
-    else
-      let g:neomake_javascript_eslint_d_maker = {
-        \ 'args': ['-f', 'compact',
-          \ '--rulesdir', simplify(g:internations_root . '/eslint_rules')
-          \ ],
-        \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-        \ '%W%f: line %l\, col %c\, Warning - %m'
-        \ }
-    endif
+    let g:neomake_javascript_eslint_d_maker = {
+      \ 'args': ['-f', 'compact',
+        \ '--rulesdir', simplify(g:internations_root . '/eslint_rules')
+        \ ],
+      \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+      \ '%W%f: line %l\, col %c\, Warning - %m'
+      \ }
   endfunction
 
   autocmd FileType jinja call HTMLTwigSettings()
