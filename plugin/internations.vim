@@ -71,4 +71,6 @@ if getcwd() =~ g:internations_root
   autocmd FileType javascript call JavaScriptLocalSettings()
   autocmd BufEnter *.js call JavaScriptGlobalSettings()
   nmap <leader>g :call EditIncludeOnLine()<cr>
+
+  let g:ctrlp_user_command = ['.git', 'git ls-files %s --exclude-standard | grep -vE "node_modules|vendor/|web/"', 'find %s -type f']
 endif
