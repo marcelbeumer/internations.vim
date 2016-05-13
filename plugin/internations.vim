@@ -73,4 +73,5 @@ if getcwd() =~ g:internations_root
   nmap <leader>g :call EditIncludeOnLine()<cr>
 
   let g:ctrlp_user_command = ['.git', 'git ls-files %s --exclude-standard | grep -vE "node_modules|vendor/|web/"', 'find %s -type f']
+  let g:ctrlp_lazy_update = 100
 endif
